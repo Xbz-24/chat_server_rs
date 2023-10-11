@@ -5,8 +5,13 @@ use tokio::net::{TcpListener, TcpStream};
 use tokio::sync::mpsc;
 use tokio::io::{self, AsyncReadExt, AsyncWriteExt};
 
+/// Represents the connected clients and their message senders.
 type Clients = HashMap<String, mpsc::UnboundedSender<Vecz<u8>>;
 
+/// Starts the server and listens for incoming client connections.
+///
+/// This function binds to the specified address, starts listening for client connections,
+/// and manages message broadcasting among connected clients.
 pub async fn start() { 
 
     let listener = TcpListener::bind(config::SERVER_ADDR).await.expect("Failed to bind Server");
@@ -27,7 +32,15 @@ pub async fn start() {
     }
 
 }
-
+/// Handles the logic for a connected client.
+///
+/// This function reads incoming messages from a client, processes them, and broadcasts
+/// them to all connected clients.
+///
+/// # Arguments
+///
+/// * `socket` - The TCPStream representing the client's connection.
+/// * `clients` - A shared reference to the list of currently connected clients.
 async fn handle_client(socket: TcpStream, clients: Arc<Mutex<Clients>>) {
 
     let mut reader = io::BufReader::new(socket);
