@@ -9,6 +9,19 @@ pub struct Message{
 }
 
 impl Message{
+    /// Creates a new message with the given sender and content.
+    ///
+    /// #Arguments
+    ///
+    /// * 'sender' - A string slice holding the name or identifier of the sender.
+    /// * 'content' - A string slice holding the message content.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use chat::common::message::Message;
+    /// let msg = Message::new("Alice", "Hello , world!");
+    /// ```
     pub fn new(sender: &str, content: &str) -> Self {
         Message {
             sender: sender.to_string(),
