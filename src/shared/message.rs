@@ -1,6 +1,9 @@
+/// Represents a single message in the chat application.
 #[derive(Debug, Clone, Serialize, Deserealize)]
 pub struct Message{
+    /// The sender's name or identifier.
     pub sender: String,
+    /// The content of the message
     pub content: String,
     pub timestamp: u64, // UNIX timestamp
 }
