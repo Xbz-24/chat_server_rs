@@ -1,5 +1,6 @@
+use serde::{Serialize, Deserialize};
 /// Represents a single message in the chat application.
-#[derive(Debug, Clone, Serialize, Deserealize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Message{
     /// The sender's name or identifier.
     pub sender: String,

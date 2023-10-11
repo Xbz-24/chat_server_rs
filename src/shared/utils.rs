@@ -1,7 +1,7 @@
-use crate::common::message::Message;
+use crate::shared::message::Message;
 use serde::{Serialize, Deserialize};
 
-pub fn serialize_message(message: &Message) -> Result<Vec<u8>>, Box<dyn std::error::Error>> {
+pub fn serialize_message(message: &Message) -> Result<Vec<u8>, Box<dyn std::error::Error>> {
 
 
     let encoded = bincode::serialize(message)?;

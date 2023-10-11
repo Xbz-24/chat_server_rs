@@ -1,4 +1,4 @@
-use crate::common::{config, message::Message, utils};
+use crate::shared::{config, message::Message, utils};
 use std::io::{self, Write};
 use tokio::net::TcpStream;
 use tokio::io::{AsyncReadExt, AsyncWriteExt};

@@ -1,4 +1,4 @@
-use crate::common::{config, message::Message, utils}
+use crate::shared::{config, message::Message, utils};
 use std::collections::HashMap; 
 use std::sync::{Arc, Mutex};
 use tokio::net::{TcpListener, TcpStream};
@@ -6,7 +6,7 @@ use tokio::sync::mpsc;
 use tokio::io::{self, AsyncReadExt, AsyncWriteExt};
 
 /// Represents the connected clients and their message senders.
-type Clients = HashMap<String, mpsc::UnboundedSender<Vecz<u8>>;
+type Clients = HashMap<String, mpsc::UnboundedSender<Vec<u8>>>;
 
 /// Starts the server and listens for incoming client connections.
 ///
