@@ -2,6 +2,7 @@
 pub mod core;
 
 /// Initiates the server.
-pub fn run_server() {
-    core::start();
+pub async fn run_server() -> Result<(), Box<dyn std::error::Error>> {
+    core::start().await;
+    Ok(())
 }

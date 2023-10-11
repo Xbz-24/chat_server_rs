@@ -1,18 +1,24 @@
-use druid::{AppLauncher, WindowDesc, Widget, PlatformError};
+use druid::{AppLauncher, WindowDesc, Widget, PlatformError, lens};
 use druid::widget::{Flex, TextBox, Button, Scroll, List, Label};
 use druid::Data;
+use druid::WidgetExt;
+use druid::Lens;
+use std::sync::Arc;
 
-#[derive(Clone, Data)]
+use im;
+
+#[derive(Clone, Data, Lens)]
 struct ChatState {
     message_input: String,
-    chat_log: Vec<String>,
+    chat_log: Arc<Vec<String>>,
 }
+
 
 impl Default for ChatState {
     fn default() -> Self {
         ChatState {
             message_input: String::new(),
-            chat_log: Vec::new(),
+            chat_log: Arc::new(Vec::new()),
         }
     }
 }
@@ -45,9 +51,9 @@ fn ui_builder() -> impl Widget<ChatState> {
                 .with_child(
                     Button::new("Send").on_click(|_ctx, data: &mut ChatState, _env| {
                         if !data.message_input.trim().is_empty() {
-                            // TODO: Send the message to the server and clear the input field.
-                            // For now, just append the message to chat_log.
-                            data.chat_log.push(data.message_input.clone());
+                            let mut new_log = (*data.chat_log).clone();
+                            new_log.push(data.message_input.clone());
+                            data.chat_log = Arc::new(new_log);
                             data.message_input.clear();
                         }
                     }),
